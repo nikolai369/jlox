@@ -3,6 +3,9 @@ package jlox;
 import java.util.List;
 
 abstract class Expression {
+
+  abstract <R> R accept(Visitor<R> visitor);
+
   interface Visitor<R> {
     R visitBinaryExpression(Binary expression);
 
@@ -111,6 +114,4 @@ abstract class Expression {
     final Expression left;
     final Expression right;
   }
-
-  abstract <R> R accept(Visitor<R> visitor);
 }
