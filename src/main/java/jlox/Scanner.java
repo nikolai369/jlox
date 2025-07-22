@@ -83,6 +83,12 @@ public class Scanner {
       case '*':
         addToken(TokenType.STAR);
         break;
+      case '?':
+        addToken(TokenType.Q_MARK);
+        break;
+      case ':':
+        addToken(TokenType.COLON);
+        break;
 
       // Needs to lookup next character
       case '!':

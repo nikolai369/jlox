@@ -44,7 +44,20 @@ public class Parser {
   }
 
   private Expression expression() {
-    return equality();
+    return ternary();
+  }
+
+  // tern -> equal ? expr : expr
+  private Expression ternary() {
+    Expression expr = equality();
+    if (!match(Q_MARK))
+      return expr;
+
+    Expression right = expression();
+    consume(COLON, "Expected ':' after expression");
+    Expression left = expression();
+
+    return new Ternary(expr, left, right);
   }
 
   private Expression equality() {

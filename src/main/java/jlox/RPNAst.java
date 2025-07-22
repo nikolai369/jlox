@@ -4,6 +4,7 @@ import jlox.Expression.Binary;
 import jlox.Expression.Comma;
 import jlox.Expression.Grouping;
 import jlox.Expression.Literal;
+import jlox.Expression.Ternary;
 import jlox.Expression.Unary;
 
 public class RPNAst {
@@ -34,6 +35,11 @@ public class RPNAst {
     public String visitCommaExpression(Comma expression) {
       Expression[] expressions = expression.expressions.toArray(new Expression[0]);
       return print("comma", expressions);
+    }
+
+    @Override
+    public String visitTernaryExpression(Ternary expression) {
+      return print("ternary", expression.left, expression.right);
     }
 
     private String print(String literal, Expression... expressions) {
