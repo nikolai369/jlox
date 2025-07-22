@@ -149,7 +149,7 @@ public class Parser {
   }
 
   // Discard unwanted tokens and continue parsing
-  private void synchroinze() {
+  private void synchronize() {
     // Go to the next token
     advance();
 
