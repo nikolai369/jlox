@@ -12,7 +12,7 @@ abstract class Expression {
 
      R visitUnaryExpression(Unary expression);
 
-     R visitBlockExpression(Block expression);
+     R visitCommaExpression(Comma expression);
 
   }
   static class Binary extends Expression {
@@ -73,20 +73,18 @@ abstract class Expression {
   final Token operator;
   final Expression right;
   }
-  static class Block extends Expression {
+  static class Comma extends Expression {
 
-    Block(Expression left, Expression right) {
-    this.left = left;
-    this.right = right;
+    Comma(List<Expression> expressions) {
+    this.expressions = expressions;
     }
 
   @Override
   <R> R accept(Visitor<R> visitor) {
-    return visitor.visitBlockExpression(this);
+    return visitor.visitCommaExpression(this);
   }
 
-  final Expression left;
-  final Expression right;
+  final List<Expression> expressions;
   }
 
   abstract <R> R accept(Visitor<R> visitor);

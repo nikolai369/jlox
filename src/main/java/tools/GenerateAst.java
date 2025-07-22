@@ -19,7 +19,7 @@ public class GenerateAst {
         "Grouping:Expression expression",
         "Literal: Object value",
         "Unary: Token operator, Expression right",
-        "Block: Expression left, Expression right"));
+        "Comma: List<Expression> expressions"));
   }
 
   private static void defineAst(String outputDir, String baseName, List<String> types) throws IOException {

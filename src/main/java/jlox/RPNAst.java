@@ -1,7 +1,7 @@
 package jlox;
 
 import jlox.Expression.Binary;
-import jlox.Expression.Block;
+import jlox.Expression.Comma;
 import jlox.Expression.Grouping;
 import jlox.Expression.Literal;
 import jlox.Expression.Unary;
@@ -30,6 +30,12 @@ public class RPNAst {
       return print(expression.operator.lexeme, expression.right);
     }
 
+    @Override
+    public String visitCommaExpression(Comma expression) {
+      Expression[] expressions = expression.expressions.toArray(new Expression[0]);
+      return print("comma", expressions);
+    }
+
     private String print(String literal, Expression... expressions) {
       StringBuilder builder = new StringBuilder();
 
@@ -40,12 +46,6 @@ public class RPNAst {
       builder.append(" ");
 
       return builder.toString();
-    }
-
-    @Override
-    public String visitBlockExpression(Block expression) {
-      // TODO Auto-generated method stub
-      throw new UnsupportedOperationException("Unimplemented method 'visitBlockExpression'");
     }
 
   }

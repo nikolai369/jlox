@@ -1,5 +1,6 @@
 package jlox;
 
+import java.util.ArrayList;
 import java.util.List;
 import jlox.Expression.*;
 
@@ -18,20 +19,28 @@ public class Parser {
 
   public Expression parse() {
     try {
-      return block();
+      return comma();
     } catch (ParseError e) {
       return null;
     }
   }
 
-  private Expression block() {
+  private Expression comma() {
     Expression expr = expression();
-    while (match(COMMA)) {
-      Expression right = expression();
-      expr = new Block(expr, right);
+
+    if (peek().type != COMMA) {
+      return expr;
     }
 
-    return expr;
+    List<Expression> exprs = new ArrayList<>();
+    exprs.add(expr);
+
+    while (match(COMMA)) {
+      Expression next = expression();
+      exprs.add(next);
+    }
+
+    return new Comma(exprs);
   }
 
   private Expression expression() {

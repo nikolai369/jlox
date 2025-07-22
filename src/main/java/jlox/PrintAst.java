@@ -1,7 +1,7 @@
 package jlox;
 
 import jlox.Expression.Binary;
-import jlox.Expression.Block;
+import jlox.Expression.Comma;
 import jlox.Expression.Grouping;
 import jlox.Expression.Literal;
 import jlox.Expression.Unary;
@@ -30,6 +30,12 @@ public class PrintAst {
       return parenthesize(expression.operator.lexeme, expression.right);
     }
 
+    @Override
+    public String visitCommaExpression(Comma expression) {
+      Expression[] expressions = expression.expressions.toArray(new Expression[0]);
+      return parenthesize("comma", expressions);
+    }
+
     private String parenthesize(String name, Expression... expressions) {
       StringBuilder builder = new StringBuilder();
 
@@ -42,11 +48,6 @@ public class PrintAst {
       builder.append(")");
 
       return builder.toString();
-    }
-
-    @Override
-    public String visitBlockExpression(Block expression) {
-      throw new UnsupportedOperationException("Unimplemented method 'visitBlockExpression'");
     }
 
   }
